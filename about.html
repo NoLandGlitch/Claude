@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Gateway Realty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f8fafc;
+      --surface:   #ffffff;
+      --surface2:  #f1f5f9;
+      --primary:   #0f172a;
+      --primary2:  #1e293b;
+      --accent:    #2563eb;
+      --accent2:   #3b82f6;
+      --accent-bg: #eff6ff;
+      --cta:       #f97316;
+      --cta2:      #fb923c;
+      --cta-bg:    #fff7ed;
+      --text:      #1e293b;
+      --muted:     #64748b;
+      --border:    #e2e8f0;
+      --border2:   #cbd5e1;
+      --green:     #10b981;
+      --red:       #ef4444;
+      --radius:    12px;
+      --radius-lg: 20px;
+      --shadow:    0 4px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,.12);
+      --transition:.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 68px;
+      background: var(--primary);
+      box-shadow: 0 1px 0 rgba(255,255,255,.06);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 34px; height: 34px; background: var(--cta); border-radius: 8px; display: grid; place-items: center; font-size: 17px; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--surface); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--surface); }
+    .nav-cta { background: var(--cta) !important; color: var(--surface) !important; padding: 9px 20px; border-radius: 8px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--cta2) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--surface); border-radius: 2px; }
+    .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: var(--primary); padding: 16px 5% 24px; z-index: 99; flex-direction: column; border-top: 1px solid rgba(255,255,255,.08); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .95rem; font-weight: 500; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── SECTION HELPERS ── */
+    section { padding: 80px 5%; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .section-tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cta); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .section-sub { font-size: 1rem; color: var(--muted); max-width: 540px; margin-top: 12px; }
+    .section-header { margin-bottom: 52px; }
+    .section-header.center { text-align: center; }
+    .section-header.center .section-sub { margin: 12px auto 0; }
+
+    /* ── HERO ── */
+    .about-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 70%, #1d3461 100%);
+      padding: 100px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(249,115,22,.1) 0%, transparent 65%);
+      top: -200px; right: -100px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 65%);
+      bottom: -100px; left: 5%;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1160px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(249,115,22,.12);
+      border: 1px solid rgba(249,115,22,.3);
+      color: var(--cta2);
+      font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 18px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--surface); line-height: 1.18; margin-bottom: 18px;
+    }
+    .hero-title span { color: var(--cta2); }
+    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,.68); line-height: 1.75; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      background: var(--cta); color: var(--surface);
+      border-radius: var(--radius); font-weight: 700; font-size: .95rem;
+      text-decoration: none; transition: all var(--transition);
+    }
+    .btn-hero-cta:hover { background: var(--cta2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,.3); }
+    .btn-hero-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      background: transparent; color: rgba(255,255,255,.85);
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: var(--radius); font-weight: 600; font-size: .95rem;
+      text-decoration: none; transition: all var(--transition);
+    }
+    .btn-hero-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.5); }
+    .hero-image-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-image-card img {
+      width: 100%; height: 360px;
+      object-fit: cover; display: block;
+    }
+    .hero-image-placeholder {
+      width: 100%; height: 360px;
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; color: rgba(255,255,255,.25);
+    }
+    .hero-image-placeholder .big { font-size: 4rem; }
+    .hero-image-placeholder p { font-size: .9rem; font-weight: 600; }
+    .hero-image-overlay {
+      padding: 20px 24px;
+      display: flex; gap: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .hero-img-stat strong { display: block; font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+    .hero-img-stat span { font-size: .75rem; color: var(--muted); font-weight: 500; }
+
+    /* ── STATS BAR ── */
+    .stats-bar { background: var(--primary); padding: 36px 5%; }
+    .stats-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: center; }
+    .stat-item strong { display: block; font-size: 2.2rem; font-weight: 800; color: var(--cta2); line-height: 1; }
+    .stat-item p { font-size: .8rem; color: rgba(255,255,255,.5); margin-top: 6px; font-weight: 500; }
+
+    /* ── STORY ── */
+    .story { background: var(--surface); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .story-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--accent-bg) 0%, #dbeafe 100%);
+      height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+    .story-img-badge {
+      position: absolute; bottom: 20px; left: 20px;
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+    }
+    .story-img-badge strong { display: block; font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+    .story-img-badge span { font-size: .75rem; color: var(--muted); }
+    .story-content { display: flex; flex-direction: column; gap: 20px; }
+    .story-content p { font-size: .97rem; color: var(--text); line-height: 1.8; }
+    .story-content blockquote {
+      border-left: 4px solid var(--cta);
+      padding-left: 20px;
+      margin: 4px 0;
+    }
+    .story-content blockquote p { color: var(--muted); font-style: italic; font-size: .95rem; }
+    .story-content blockquote cite { font-size: .78rem; color: var(--muted); font-style: normal; font-weight: 600; margin-top: 4px; display: block; }
+
+    /* ── VALUES ── */
+    .values { background: var(--bg); }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .value-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: all var(--transition);
+    }
+    .value-card:hover { border-color: var(--accent); box-shadow: 0 8px 24px rgba(37,99,235,.1); transform: translateY(-3px); }
+    .value-icon {
+      width: 52px; height: 52px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 22px; margin-bottom: 16px;
+    }
+    .value-title { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .value-text { font-size: .87rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── TEAM ── */
+    .team { background: var(--surface); }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .agent-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      transition: all var(--transition);
+    }
+    .agent-card:hover { border-color: var(--cta); box-shadow: 0 8px 24px rgba(249,115,22,.1); transform: translateY(-4px); }
+    .agent-photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
+      margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      border: 3px solid var(--cta);
+    }
+    .agent-name { font-weight: 700; color: var(--primary); margin-bottom: 4px; font-size: .95rem; }
+    .agent-role { font-size: .78rem; color: var(--cta); font-weight: 600; margin-bottom: 6px; }
+    .agent-deals { font-size: .75rem; color: var(--muted); margin-bottom: 16px; }
+    .agent-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+    .agent-tag { background: var(--accent-bg); color: var(--accent); font-size: .68rem; font-weight: 600; padding: 3px 8px; border-radius: 100px; }
+    .agent-btn {
+      display: block; width: 100%;
+      padding: 9px;
+      background: var(--primary); color: var(--surface);
+      border: none; border-radius: 8px;
+      font-size: .82rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; text-decoration: none;
+      transition: background var(--transition);
+    }
+    .agent-btn:hover { background: var(--primary2); }
+
+    /* ── TIMELINE ── */
+    .timeline-section { background: var(--primary); }
+    .timeline-section .section-title { color: var(--surface); }
+    .timeline-section .section-sub { color: rgba(255,255,255,.55); }
+    .timeline { display: flex; flex-direction: column; gap: 0; max-width: 640px; margin: 0 auto; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cta), var(--accent));
+    }
+    .timeline-item { display: flex; gap: 28px; padding: 0 0 36px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--cta);
+      border: 4px solid var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 800; color: var(--surface);
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .timeline-content { padding-top: 8px; }
+    .timeline-year { font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--cta2); margin-bottom: 4px; }
+    .timeline-event { font-size: .95rem; font-weight: 600; color: var(--surface); margin-bottom: 4px; }
+    .timeline-detail { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.55; }
+
+    /* ── AWARDS ── */
+    .awards { background: var(--bg); }
+    .awards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .award-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      text-align: center;
+      transition: all var(--transition);
+    }
+    .award-card:hover { border-color: var(--cta); box-shadow: var(--shadow); }
+    .award-icon { font-size: 2rem; margin-bottom: 10px; }
+    .award-name { font-size: .88rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .award-year { font-size: .75rem; color: var(--muted); }
+
+    /* ── CTA SECTION ── */
+    .cta-section { background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%); position: relative; overflow: hidden; }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(249,115,22,.1) 0%, transparent 65%);
+      top: -150px; right: -100px;
+      border-radius: 50%;
+    }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 640px; margin: 0 auto; }
+    .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; color: var(--surface); margin-bottom: 14px; line-height: 1.2; }
+    .cta-title span { color: var(--cta2); }
+    .cta-sub { font-size: 1rem; color: rgba(255,255,255,.6); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer { background: #060f1f; color: rgba(255,255,255,.5); padding: 52px 5% 28px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .footer-desc { font-size: .83rem; line-height: 1.7; margin-top: 14px; margin-bottom: 18px; }
+    .footer-socials { display: flex; gap: 8px; }
+    .social-btn { width: 34px; height: 34px; background: rgba(255,255,255,.07); border-radius: 8px; display: grid; place-items: center; font-size: .82rem; cursor: pointer; border: none; color: rgba(255,255,255,.6); text-decoration: none; transition: background var(--transition); }
+    .social-btn:hover { background: var(--cta); color: var(--surface); }
+    .footer-col-title { font-size: .8rem; font-weight: 700; color: var(--surface); letter-spacing: .5px; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { color: rgba(255,255,255,.45); text-decoration: none; font-size: .82rem; transition: color var(--transition); }
+    .footer-col a:hover { color: var(--cta2); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: .78rem; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom a { color: rgba(255,255,255,.35); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--cta2); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .awards-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 60px 5%; }
+      .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+      .hero-image-card { display: none; }
+      .story-grid { grid-template-columns: 1fr; gap: 36px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 480px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: 1fr 1fr; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">🏡</div>
+    <span class="nav-logo-text">Gateway Realty</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#listings">Listings</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="members.html">Members</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Free Consult</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#listings">Listings</a>
+  <a href="about.html">About</a>
+  <a href="members.html">Members</a>
+  <a href="index.html#contact">Free Consult</a>
+</div>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">🏆 Founded 2009 · Trusted by 2,400+ Families</div>
+      <h1 class="hero-title">We Don't Just Sell Homes —<br>We Build <span>Communities</span></h1>
+      <p class="hero-desc">Gateway Realty was founded on a simple belief: that finding your home should feel exciting, not overwhelming. Our team of dedicated local experts has spent over 15 years turning that belief into results for thousands of families and investors across California.</p>
+      <div class="hero-actions">
+        <a href="index.html#contact" class="btn-hero-cta">Work With Us →</a>
+        <a href="index.html#listings" class="btn-hero-ghost">Browse Listings</a>
+      </div>
+    </div>
+    <div class="hero-image-card">
+      <div class="hero-image-placeholder">
+        <div class="big">🏡</div>
+        <p>Gateway Realty Office</p>
+      </div>
+      <div class="hero-image-overlay">
+        <div class="hero-img-stat"><strong>15+</strong><span>Years of Excellence</span></div>
+        <div class="hero-img-stat"><strong>4.9★</strong><span>Average Rating</span></div>
+        <div class="hero-img-stat"><strong>$1.2B+</strong><span>In Transactions</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><strong>2,400+</strong><p>Homes Sold</p></div>
+    <div class="stat-item"><strong>42</strong><p>Expert Agents</p></div>
+    <div class="stat-item"><strong>18 Days</strong><p>Avg. Days to Close</p></div>
+    <div class="stat-item"><strong>98%</strong><p>Client Satisfaction</p></div>
+  </div>
+</div>
+
+<!-- OUR STORY -->
+<section class="story">
+  <div class="inner">
+    <div class="story-grid">
+      <div class="story-img">
+        🏘️
+        <div class="story-img-badge">
+          <strong>2009</strong>
+          <span>Year Founded</span>
+        </div>
+      </div>
+      <div class="story-content">
+        <div>
+          <span class="section-tag">Our Story</span>
+          <h2 class="section-title">From a Single Office to California's Most Trusted Realty</h2>
+        </div>
+        <p>Gateway Realty was born in 2009 when founder <strong>Michael Gateway</strong> — a 20-year veteran of the California real estate market — saw a gap between what clients needed and what the industry delivered: real expertise, honest advice, and agents who truly listened.</p>
+        <p>Starting with just four agents and a rented office, we grew by doing one thing consistently: putting our clients first. Word spread. Referrals came. Today, our 42-agent team spans the greater California region, but our commitment to the personal touch that built us remains unchanged.</p>
+        <blockquote>
+          <p>"Real estate is about people. The moment you forget that, you've lost the whole point."</p>
+          <cite>— Michael Gateway, Founder & CEO</cite>
+        </blockquote>
+        <p>We believe in full transparency, local expertise, and relationships that last well beyond closing day. That's the Gateway difference.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="inner">
+    <div class="section-header center">
+      <span class="section-tag">What Drives Us</span>
+      <h2 class="section-title">Our Core Values</h2>
+      <p class="section-sub">Every decision we make comes back to these six principles.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Integrity First</div>
+        <p class="value-text">We say what we mean and mean what we say. Our clients receive honest assessments — even when the truth is hard to hear — because trust is everything.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🏆</div>
+        <div class="value-title">Local Expertise</div>
+        <p class="value-text">Our agents live and work in the communities they serve. That's not a marketing line — it's the reason we consistently outperform out-of-market competitors.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Results-Driven</div>
+        <p class="value-text">We're measured by one thing: outcomes for our clients. Faster closings, better prices, fewer surprises. That's the standard we hold ourselves to every day.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌱</div>
+        <div class="value-title">Community Focus</div>
+        <p class="value-text">We invest back into the neighborhoods we work in — from local sponsorships to charity auctions. When the community thrives, so does everyone in it.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💡</div>
+        <div class="value-title">Innovation</div>
+        <p class="value-text">We embrace modern tools — virtual tours, market analytics, real-time data — to give our clients an edge in any market condition.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔍</div>
+        <div class="value-title">Transparency</div>
+        <p class="value-text">No hidden fees, no vague answers. Our clients always know where their transaction stands, what it costs, and why we're recommending each step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div class="inner">
+    <div class="section-header center">
+      <span class="section-tag">The Team</span>
+      <h2 class="section-title">Meet Our Top Agents</h2>
+      <p class="section-sub">Award-winning specialists ready to guide you through every step of your real estate journey.</p>
+    </div>
+    <div class="team-grid">
+      <div class="agent-card">
+        <div class="agent-photo">👩‍💼</div>
+        <div class="agent-name">Jennifer Lowe</div>
+        <div class="agent-role">Senior Listing Agent</div>
+        <div class="agent-deals">142 closings · 4.9★</div>
+        <div class="agent-tags">
+          <span class="agent-tag">Residential</span>
+          <span class="agent-tag">Luxury</span>
+        </div>
+        <a href="index.html#contact" class="agent-btn">Connect →</a>
+      </div>
+      <div class="agent-card">
+        <div class="agent-photo">👨‍💼</div>
+        <div class="agent-name">Marcus Bell</div>
+        <div class="agent-role">Buyer's Specialist</div>
+        <div class="agent-deals">118 closings · 5.0★</div>
+        <div class="agent-tags">
+          <span class="agent-tag">First-Time Buyers</span>
+          <span class="agent-tag">Relocation</span>
+        </div>
+        <a href="index.html#contact" class="agent-btn">Connect →</a>
+      </div>
+      <div class="agent-card">
+        <div class="agent-photo">🧑‍💼</div>
+        <div class="agent-name">Priya Sharma</div>
+        <div class="agent-role">Luxury Property Expert</div>
+        <div class="agent-deals">97 closings · 4.9★</div>
+        <div class="agent-tags">
+          <span class="agent-tag">Luxury Estates</span>
+          <span class="agent-tag">Waterfront</span>
+        </div>
+        <a href="index.html#contact" class="agent-btn">Connect →</a>
+      </div>
+      <div class="agent-card">
+        <div class="agent-photo">👨‍🏫</div>
+        <div class="agent-name">Carlos Vega</div>
+        <div class="agent-role">Investment Advisor</div>
+        <div class="agent-deals">204 closings · 4.8★</div>
+        <div class="agent-tags">
+          <span class="agent-tag">Multi-Family</span>
+          <span class="agent-tag">ROI Analysis</span>
+        </div>
+        <a href="index.html#contact" class="agent-btn">Connect →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="inner">
+    <div class="section-header center">
+      <span class="section-tag" style="color:var(--cta2)">Our Journey</span>
+      <h2 class="section-title">15 Years of Growing With Our Clients</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.5)">From a small startup to California's most trusted independent realty.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">09</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2009</div>
+          <div class="timeline-event">Gateway Realty Founded</div>
+          <div class="timeline-detail">Michael Gateway opens the first office in Clearview with 4 agents and a clear mission: clients first, always.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">12</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2012</div>
+          <div class="timeline-event">100th Home Sold</div>
+          <div class="timeline-detail">A milestone achieved in just 3 years, recognized by the California Association of Realtors.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">15</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2015</div>
+          <div class="timeline-event">Expansion to Three Offices</div>
+          <div class="timeline-detail">Opened second and third locations in Sundale and Harborview to serve growing client demand.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">19</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2019</div>
+          <div class="timeline-event">$500M in Transactions</div>
+          <div class="timeline-detail">Crossed a half-billion dollars in total closed transactions, cementing regional leadership.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">24</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-event">Named #1 Independent Realty</div>
+          <div class="timeline-detail">Awarded Top Independent Agency by California Realty Today magazine for the third consecutive year.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="awards">
+  <div class="inner">
+    <div class="section-header center">
+      <span class="section-tag">Recognition</span>
+      <h2 class="section-title">Award-Winning Service</h2>
+      <p class="section-sub">Our work speaks for itself — but we appreciate the recognition too.</p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card">
+        <div class="award-icon">🏆</div>
+        <div class="award-name">#1 Independent Agency</div>
+        <div class="award-year">CA Realty Today · 2022–2024</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">⭐</div>
+        <div class="award-name">Best Customer Service</div>
+        <div class="award-year">Regional Choice Awards · 2023</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">📈</div>
+        <div class="award-name">Top Sales Performance</div>
+        <div class="award-year">CAR Association · 2021–2024</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🌟</div>
+        <div class="award-name">5-Star Zillow Agency</div>
+        <div class="award-year">Zillow Premier Agent · 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="inner">
+    <div class="cta-inner">
+      <h2 class="cta-title">Ready to Work With <span>California's Best?</span></h2>
+      <p class="cta-sub">Whether you're buying your first home, selling an estate, or building an investment portfolio — our team is ready to deliver results.</p>
+      <div class="cta-buttons">
+        <a href="index.html#contact" class="btn-hero-cta">Get a Free Consultation →</a>
+        <a href="index.html#listings" class="btn-hero-ghost">Browse Listings</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">🏡</div>
+          <span class="nav-logo-text">Gateway Realty</span>
+        </a>
+        <p class="footer-desc">California's most trusted independent real estate agency. Helping families and investors find, buy, sell, and grow through property since 2009.</p>
+        <div class="footer-socials">
+          <a class="social-btn" href="#" aria-label="Facebook">f</a>
+          <a class="social-btn" href="#" aria-label="Instagram" style="font-style:italic;">in</a>
+          <a class="social-btn" href="#" aria-label="Twitter">𝕏</a>
+          <a class="social-btn" href="#" aria-label="LinkedIn">Li</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#listings">Listings</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="members.html">Members Portal</a></li>
+          <li><a href="index.html#contact">Free Consult</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Property Types</div>
+        <ul>
+          <li><a href="#">Single Family Homes</a></li>
+          <li><a href="#">Condos & Townhomes</a></li>
+          <li><a href="#">Luxury Estates</a></li>
+          <li><a href="#">Multi-Family</a></li>
+          <li><a href="#">Investment</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="tel:+15550001234">📞 (555) 000-1234</a></li>
+          <li><a href="mailto:hello@gatewayrealty.com">✉️ hello@gatewayrealty.com</a></li>
+          <li><a href="#">📍 200 Gateway Plaza, CA</a></li>
+          <li><a href="#">🕐 Mon–Sat: 8AM – 8PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Gateway Realty. All rights reserved.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Fair Housing</a>
+        <a href="#">DRE #01234567</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

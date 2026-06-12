@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Details | Gateway Realty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f8fafc;
+      --surface:   #ffffff;
+      --surface2:  #f1f5f9;
+      --primary:   #0f172a;
+      --primary2:  #1e293b;
+      --accent:    #2563eb;
+      --accent2:   #3b82f6;
+      --accent-bg: #eff6ff;
+      --cta:       #f97316;
+      --cta2:      #fb923c;
+      --cta-bg:    #fff7ed;
+      --text:      #1e293b;
+      --muted:     #64748b;
+      --border:    #e2e8f0;
+      --border2:   #cbd5e1;
+      --green:     #10b981;
+      --red:       #ef4444;
+      --yellow:    #f59e0b;
+      --radius:    12px;
+      --radius-lg: 20px;
+      --shadow:    0 4px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,.12);
+      --transition:.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+      background: var(--primary);
+      box-shadow: 0 1px 0 rgba(255,255,255,.06);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 34px; height: 34px; background: var(--cta); border-radius: 8px; display: grid; place-items: center; font-size: 17px; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--surface); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--surface); }
+    .nav-cta { background: var(--cta) !important; color: var(--surface) !important; padding: 9px 20px; border-radius: 8px; font-weight: 600 !important; transition: background var(--transition) !important; }
+    .nav-cta:hover { background: var(--cta2) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--surface); border-radius: 2px; }
+    .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: var(--primary); padding: 16px 5% 24px; z-index: 99; flex-direction: column; border-top: 1px solid rgba(255,255,255,.08); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .95rem; font-weight: 500; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 14px 5%;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { color: var(--border2); }
+    .breadcrumb-current { color: var(--text); font-weight: 500; }
+
+    /* ── HERO IMAGE ── */
+    .listing-hero {
+      position: relative;
+      height: 460px;
+      background: var(--primary2);
+      overflow: hidden;
+    }
+    .listing-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .listing-hero-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.3);
+      font-size: 4rem;
+      gap: 12px;
+    }
+    .listing-hero-placeholder p { font-size: 1rem; font-weight: 500; }
+    .listing-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,23,42,.7) 0%, transparent 50%);
+    }
+    .listing-hero-status {
+      position: absolute;
+      top: 20px; left: 20px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .status-Active   { background: var(--green);  color: #fff; }
+    .status-Pending  { background: var(--yellow); color: #fff; }
+    .status-Sold     { background: var(--accent);  color: #fff; }
+    .status-Draft    { background: var(--muted);   color: #fff; }
+    .listing-hero-price {
+      position: absolute;
+      bottom: 24px; left: 5%;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--surface);
+      text-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .listing-main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 32px 5% 60px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Left column */
+    .listing-left {}
+    .listing-header { margin-bottom: 24px; }
+    .listing-address {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .listing-city { font-size: 1rem; color: var(--muted); margin-bottom: 16px; }
+    .listing-stats-bar {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .listing-stat {
+      flex: 1;
+      padding: 16px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .listing-stat:last-child { border-right: none; }
+    .listing-stat-val { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+    .listing-stat-label { font-size: .72rem; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+    .section-block { background: var(--surface); border-radius: var(--radius); border: 1.5px solid var(--border); padding: 24px; margin-bottom: 20px; }
+    .section-block-title { font-size: .75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .section-block-body { font-size: .95rem; color: var(--text); line-height: 1.75; }
+
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid #bfdbfe;
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .detail-label { font-size: .73rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .detail-val { font-size: .92rem; font-weight: 600; color: var(--primary); }
+
+    /* Right column */
+    .listing-right {}
+    .right-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .share-title { font-size: .9rem; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+    .share-url {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .78rem;
+      color: var(--muted);
+      word-break: break-all;
+      margin-bottom: 10px;
+    }
+    .share-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+    }
+    .btn-share-copy { background: var(--primary); color: var(--surface); grid-column: 1 / -1; padding: 12px; }
+    .btn-share-copy:hover { background: var(--primary2); }
+    .btn-share-copy.copied { background: var(--green); }
+    .btn-share-native { background: var(--accent-bg); color: var(--accent); border: 1px solid #bfdbfe; }
+    .btn-share-native:hover { background: var(--accent); color: var(--surface); }
+
+    .agent-card-title { font-size: .9rem; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+    .agent-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .agent-mini-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      border: 2px solid var(--cta);
+      flex-shrink: 0;
+    }
+    .agent-mini-name { font-weight: 700; font-size: .9rem; color: var(--primary); }
+    .agent-mini-role { font-size: .75rem; color: var(--cta); font-weight: 600; }
+    .agent-mini-deals { font-size: .73rem; color: var(--muted); margin-top: 2px; }
+
+    .contact-form-title { font-size: .88rem; font-weight: 700; color: var(--primary); margin-bottom: 14px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: .75rem; font-weight: 600; color: var(--primary); margin-bottom: 5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: .87rem;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+      background: var(--surface);
+    }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .btn-cta {
+      width: 100%;
+      padding: 13px;
+      background: var(--cta);
+      color: var(--surface);
+      border: none;
+      border-radius: 10px;
+      font-size: .92rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      margin-top: 4px;
+    }
+    .btn-cta:hover { background: var(--cta2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(249,115,22,.3); }
+    .form-note { font-size: .72rem; color: var(--muted); text-align: center; margin-top: 10px; }
+
+    /* Similar listings */
+    .similar-section { max-width: 1160px; margin: 0 auto; padding: 0 5% 80px; }
+    .similar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .similar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .listing-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .listing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+    .card-img { position: relative; height: 180px; overflow: hidden; background: var(--primary2); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .listing-card:hover .card-img img { transform: scale(1.05); }
+    .card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: rgba(255,255,255,.3); }
+    .card-body { padding: 16px; }
+    .card-price { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+    .card-addr { font-size: .8rem; color: var(--muted); margin: 3px 0 10px; }
+    .card-stats { display: flex; gap: 12px; font-size: .78rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--primary); color: rgba(255,255,255,.55); padding: 48px 5% 28px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand .nav-logo-text { font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.45); text-decoration: none; font-size: .82rem; transition: color var(--transition); }
+    .footer-links a:hover { color: var(--cta2); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; font-size: .78rem; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom a { color: rgba(255,255,255,.35); text-decoration: none; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--primary);
+      color: var(--surface);
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: .87rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 8px;
+      transform: translateY(80px); opacity: 0;
+      transition: all .35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 9999;
+      max-width: 300px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 4px solid var(--green); }
+    .toast.error   { border-left: 4px solid var(--red); }
+
+    /* ── NOT FOUND ── */
+    .not-found {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 5%;
+    }
+    .not-found-icon { font-size: 3.5rem; margin-bottom: 16px; }
+    .not-found-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+    .not-found-sub { color: var(--muted); margin-bottom: 28px; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: var(--surface);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      transition: background var(--transition);
+    }
+    .btn-back:hover { background: var(--primary2); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .listing-main { grid-template-columns: 1fr; }
+      .listing-right { order: -1; }
+      .similar-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 580px) {
+      .listing-hero { height: 280px; }
+      .listing-address { font-size: 1.35rem; }
+      .listing-stats-bar { flex-wrap: wrap; }
+      .listing-stat { min-width: 50%; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .similar-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">🏡</div>
+    <span class="nav-logo-text">Gateway Realty</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#listings">Listings</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="members.html">Members</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Free Consult</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#listings">Listings</a>
+  <a href="about.html">About</a>
+  <a href="members.html">Members</a>
+  <a href="index.html#contact">Free Consult</a>
+</div>
+
+<!-- Dynamic content injected by JS -->
+<div id="app"></div>
+
+<!-- Similar Listings -->
+<div class="similar-section" id="similarSection" style="display:none">
+  <div class="similar-title">Similar Properties</div>
+  <div class="similar-grid" id="similarGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🏡</div>
+        <span class="nav-logo-text">Gateway Realty</span>
+      </a>
+      <nav class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#listings">Listings</a>
+        <a href="about.html">About</a>
+        <a href="members.html">Members Portal</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Gateway Realty. All rights reserved.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">DRE #01234567</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span id="toastIcon">✅</span>
+  <span id="toastMsg">Done.</span>
+</div>
+
+<script>
+/* ─── HELPERS ─── */
+const $ = id => document.getElementById(id);
+function fmtPrice(n) { return n ? '$' + Number(n).toLocaleString() : '—'; }
+function fullAddr(l) { return [l.address, l.city, l.state].filter(Boolean).join(', '); }
+
+let toastTimer;
+function showToast(msg, type = 'success') {
+  const icons = { success:'✅', error:'❌', info:'ℹ️' };
+  const toast = $('toast');
+  $('toastMsg').textContent = msg;
+  $('toastIcon').textContent = icons[type] || '✅';
+  toast.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+/* ─── MOBILE NAV ─── */
+$('hamburger').addEventListener('click', () => $('mobileMenu').classList.toggle('open'));
+
+/* ─── LOAD LISTING ─── */
+const params  = new URLSearchParams(window.location.search);
+const id      = params.get('id');
+const listings = JSON.parse(localStorage.getItem('gw_listings') || '[]');
+const listing  = listings.find(l => l.id === id);
+
+const statusClass = s => ({ Active:'status-Active', Pending:'status-Pending', Sold:'status-Sold', Draft:'status-Draft' }[s] || 'status-Draft');
+
+if (!listing) {
+  $('app').innerHTML = `
+    <div class="not-found">
+      <div class="not-found-icon">🔍</div>
+      <div class="not-found-title">Listing Not Found</div>
+      <p class="not-found-sub">This property may have been removed or the link is invalid.</p>
+      <a href="index.html#listings" class="btn-back">← Browse All Listings</a>
+    </div>`;
+} else {
+  document.title = `${listing.address}, ${listing.city || ''} | Gateway Realty`;
+
+  const imgHTML = listing.image
+    ? `<img src="${listing.image}" alt="${listing.address}" onerror="this.parentElement.innerHTML='<div class=listing-hero-placeholder>🏠<p>Image unavailable</p></div>'" />`
+    : `<div class="listing-hero-placeholder">🏠<p>No image provided</p></div>`;
+
+  const tagsHTML = (listing.tags || []).length
+    ? listing.tags.map(t => `<span class="tag">✓ ${t}</span>`).join('')
+    : '<span style="color:var(--muted);font-size:.85rem;">No features listed</span>';
+
+  const currentUrl = window.location.href;
+
+  $('app').innerHTML = `
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="index.html#listings">Listings</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">${listing.address}</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="listing-hero">
+      ${imgHTML}
+      <div class="listing-hero-overlay"></div>
+      <span class="listing-hero-status ${statusClass(listing.status)}">${listing.status || 'Active'}</span>
+      <div class="listing-hero-price">${fmtPrice(listing.price)}</div>
+    </div>
+
+    <!-- Main -->
+    <div class="listing-main">
+
+      <!-- LEFT -->
+      <div class="listing-left">
+        <div class="listing-header">
+          <h1 class="listing-address">${listing.address}</h1>
+          <div class="listing-city">${[listing.city, listing.state, listing.zip].filter(Boolean).join(', ')}</div>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="listing-stats-bar">
+          ${listing.beds    ? `<div class="listing-stat"><div class="listing-stat-val">${listing.beds}</div><div class="listing-stat-label">Beds</div></div>` : ''}
+          ${listing.baths   ? `<div class="listing-stat"><div class="listing-stat-val">${listing.baths}</div><div class="listing-stat-label">Baths</div></div>` : ''}
+          ${listing.sqft    ? `<div class="listing-stat"><div class="listing-stat-val">${Number(listing.sqft).toLocaleString()}</div><div class="listing-stat-label">Sq Ft</div></div>` : ''}
+          ${listing.type    ? `<div class="listing-stat"><div class="listing-stat-val" style="font-size:.85rem">${listing.type}</div><div class="listing-stat-label">Type</div></div>` : ''}
+          ${listing.year    ? `<div class="listing-stat"><div class="listing-stat-val">${listing.year}</div><div class="listing-stat-label">Built</div></div>` : ''}
+        </div>
+
+        <!-- Description -->
+        <div class="section-block">
+          <div class="section-block-title">About This Property</div>
+          <div class="section-block-body">${listing.description || 'No description provided.'}</div>
+        </div>
+
+        <!-- Features -->
+        <div class="section-block">
+          <div class="section-block-title">Features & Highlights</div>
+          <div class="tags-wrap">${tagsHTML}</div>
+        </div>
+
+        <!-- Details grid -->
+        <div class="section-block">
+          <div class="section-block-title">Property Details</div>
+          <div class="detail-grid">
+            <div class="detail-item"><span class="detail-label">Property Type</span><span class="detail-val">${listing.type || '—'}</span></div>
+            <div class="detail-item"><span class="detail-label">Status</span><span class="detail-val">${listing.status || '—'}</span></div>
+            <div class="detail-item"><span class="detail-label">Bedrooms</span><span class="detail-val">${listing.beds || '—'}</span></div>
+            <div class="detail-item"><span class="detail-label">Bathrooms</span><span class="detail-val">${listing.baths || '—'}</span></div>
+            <div class="detail-item"><span class="detail-label">Square Feet</span><span class="detail-val">${listing.sqft ? Number(listing.sqft).toLocaleString() : '—'}</span></div>
+            <div class="detail-item"><span class="detail-label">Year Built</span><span class="detail-val">${listing.year || '—'}</span></div>
+            <div class="detail-item"><span class="detail-label">List Price</span><span class="detail-val">${fmtPrice(listing.price)}</span></div>
+            <div class="detail-item"><span class="detail-label">Listed</span><span class="detail-val">${listing.date ? new Date(listing.date).toLocaleDateString() : '—'}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="listing-right">
+
+        <!-- Share card -->
+        <div class="right-card">
+          <div class="share-title">📤 Share This Listing</div>
+          <div class="share-url" id="shareUrl">${currentUrl}</div>
+          <div class="share-buttons">
+            <button class="btn-share btn-share-copy" id="copyBtn" onclick="copyLink()">Copy Link</button>
+            <button class="btn-share btn-share-native" onclick="nativeShare()">Share</button>
+          </div>
+        </div>
+
+        <!-- Agent + Contact -->
+        <div class="right-card">
+          <div class="agent-card-title">Listed By</div>
+          <div class="agent-mini">
+            <div class="agent-mini-avatar">👩‍💼</div>
+            <div>
+              <div class="agent-mini-name">Jennifer Lowe</div>
+              <div class="agent-mini-role">Senior Listing Agent</div>
+              <div class="agent-mini-deals">142 closings · 4.9★</div>
+            </div>
+          </div>
+          <div class="contact-form-title">Request More Information</div>
+          <form onsubmit="submitInquiry(event)">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="jane@email.com" required />
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="(555) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="I'm interested in this property and would like to schedule a viewing…"></textarea>
+            </div>
+            <button type="submit" class="btn-cta">Request a Showing →</button>
+            <div class="form-note">🔒 Your info is private and secure.</div>
+          </form>
+        </div>
+
+      </div>
+    </div>`;
+
+  /* Similar listings */
+  const similar = listings
+    .filter(l => l.id !== id)
+    .sort((a, b) => (a.type === listing.type ? -1 : 1))
+    .slice(0, 3);
+
+  if (similar.length) {
+    $('similarSection').style.display = 'block';
+    $('similarGrid').innerHTML = similar.map(l => `
+      <a class="listing-card" href="listing.html?id=${l.id}">
+        <div class="card-img">
+          ${l.image
+            ? `<img src="${l.image}" alt="${l.address}" loading="lazy" />`
+            : `<div class="card-img-placeholder">🏠</div>`}
+        </div>
+        <div class="card-body">
+          <div class="card-price">${fmtPrice(l.price)}</div>
+          <div class="card-addr">📍 ${fullAddr(l)}</div>
+          <div class="card-stats">
+            ${l.beds ? `🛏 ${l.beds} Beds` : ''}
+            ${l.baths ? `🚿 ${l.baths} Baths` : ''}
+            ${l.sqft ? `📐 ${Number(l.sqft).toLocaleString()} sqft` : ''}
+          </div>
+        </div>
+      </a>`).join('');
+  }
+}
+
+/* ─── SHARE ─── */
+async function copyLink() {
+  const url = window.location.href;
+  const btn = $('copyBtn');
+  try {
+    await navigator.clipboard.writeText(url);
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    showToast('Link copied to clipboard!', 'success');
+    setTimeout(() => { btn.textContent = 'Copy Link'; btn.classList.remove('copied'); }, 2500);
+  } catch {
+    prompt('Copy this link:', url);
+  }
+}
+
+async function nativeShare() {
+  const url = window.location.href;
+  if (!listing) return;
+  try {
+    await navigator.share({
+      title: `${listing.address} | Gateway Realty`,
+      text: `Check out this ${listing.type} for ${fmtPrice(listing.price)}`,
+      url
+    });
+  } catch {
+    copyLink();
+  }
+}
+
+function submitInquiry(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-cta');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  setTimeout(() => {
+    e.target.reset();
+    btn.textContent = 'Request a Showing →';
+    btn.disabled = false;
+    showToast('Inquiry sent! An agent will contact you within 24 hours.', 'success');
+  }, 1200);
+}
+
+function fmtPrice(n) { return n ? '$' + Number(n).toLocaleString() : '—'; }
+</script>
+</body>
+</html>
