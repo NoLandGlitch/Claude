@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gateway Realty | Find Your Dream Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1f3c;
+      --navy2:  #162d52;
+      --gold:   #c9973a;
+      --gold2:  #e8b84b;
+      --white:  #ffffff;
+      --off:    #f7f8fc;
+      --gray:   #6b7280;
+      --light:  #e5e7eb;
+      --dark:   #111827;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,.10);
+      --transition: .25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: transparent;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled {
+      background: var(--navy);
+      box-shadow: 0 2px 20px rgba(0,0,0,.25);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .5px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold2); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--white) !important;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--gold2) !important; color: var(--dark) !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--navy);
+      padding: 20px 5% 28px;
+      z-index: 999;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: color var(--transition);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--gold2); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 5% 80px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1e3a5f 100%);
+      overflow: hidden;
+    }
+    .hero-bg-shapes {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-bg-shapes::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,151,58,.15) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+    .hero-bg-shapes::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,151,58,.08) 0%, transparent 70%);
+      bottom: -80px; left: 10%;
+      border-radius: 50%;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,151,58,.15);
+      border: 1px solid rgba(201,151,58,.3);
+      color: var(--gold2);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.18;
+      margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--gold2); }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+    }
+    .hero-stat strong {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold2);
+    }
+    .hero-stat span {
+      font-size: .8rem;
+      color: rgba(255,255,255,.55);
+      font-weight: 500;
+    }
+
+    /* Lead form card */
+    .lead-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.3);
+    }
+    .lead-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .lead-card-sub {
+      font-size: .85rem;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--light);
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      color: var(--dark);
+      background: var(--off);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,151,58,.12);
+      background: var(--white);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: transform var(--transition), box-shadow var(--transition);
+      letter-spacing: .3px;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,151,58,.35);
+    }
+    .form-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: .75rem;
+      color: var(--gray);
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 28px 5%;
+    }
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+    .stat-item strong {
+      display: block;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold2);
+      line-height: 1;
+    }
+    .stat-item p {
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ── SECTION HELPERS ── */
+    section { padding: 90px 5%; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-tag {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--gray);
+      max-width: 560px;
+      margin: 12px auto 0;
+    }
+    .inner { max-width: 1200px; margin: 0 auto; }
+
+    /* ── SEARCH BAR ── */
+    .search-section {
+      padding: 0 5% 60px;
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+    }
+    .search-bar {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.15);
+      padding: 24px 28px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .search-bar .form-group {
+      margin-bottom: 0;
+      flex: 1;
+      min-width: 140px;
+    }
+    .search-bar .btn-search {
+      padding: 12px 28px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--transition);
+      height: 44px;
+    }
+    .search-bar .btn-search:hover { background: var(--navy2); }
+
+    /* ── LISTINGS ── */
+    .listings { background: var(--off); }
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .listing-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .listing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.14);
+    }
+    .listing-img {
+      position: relative;
+      height: 210px;
+      overflow: hidden;
+    }
+    .listing-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .listing-card:hover .listing-img img { transform: scale(1.05); }
+    .listing-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .listing-badge.new { background: #10b981; }
+    .listing-badge.reduced { background: #ef4444; }
+    .listing-fav {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,.9);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      transition: background var(--transition);
+    }
+    .listing-fav:hover { background: var(--white); }
+    .listing-body { padding: 20px; }
+    .listing-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .listing-addr {
+      font-size: .85rem;
+      color: var(--gray);
+      margin: 4px 0 14px;
+    }
+    .listing-details {
+      display: flex;
+      gap: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--light);
+    }
+    .listing-detail {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .8rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    .listing-detail svg { color: var(--gold); flex-shrink: 0; }
+    .listings-cta {
+      text-align: center;
+      margin-top: 48px;
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 13px 36px;
+      border: 2px solid var(--navy);
+      color: var(--navy);
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      background: transparent;
+      transition: all var(--transition);
+    }
+    .btn-outline:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    /* ── WHY US ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .why-card {
+      padding: 36px 28px;
+      border-radius: var(--radius);
+      background: var(--white);
+      border: 1.5px solid var(--light);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .why-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 32px rgba(201,151,58,.12);
+      transform: translateY(-4px);
+    }
+    .why-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .why-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .why-text { font-size: .9rem; color: var(--gray); line-height: 1.65; }
+
+    /* ── PROCESS ── */
+    .process { background: var(--navy); }
+    .process .section-title { color: var(--white); }
+    .process .section-sub { color: rgba(255,255,255,.55); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 12.5%;
+      width: 75%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+      z-index: 0;
+    }
+    .process-step { text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 56px; height: 56px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      border: 4px solid var(--navy);
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .step-text { font-size: .83rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--off); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
+    .testimonial-text {
+      font-size: .92rem;
+      color: #374151;
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--light);
+    }
+    .author-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--light);
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: .9rem; color: var(--navy); }
+    .author-loc { font-size: .78rem; color: var(--gray); }
+
+    /* ── AGENTS ── */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .agent-card {
+      text-align: center;
+      padding: 28px 16px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--light);
+      background: var(--white);
+      transition: all var(--transition);
+    }
+    .agent-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px rgba(201,151,58,.1);
+      transform: translateY(-4px);
+    }
+    .agent-photo {
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      border: 3px solid var(--gold);
+    }
+    .agent-name { font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .agent-role { font-size: .82rem; color: var(--gold); font-weight: 600; margin-bottom: 8px; }
+    .agent-deals { font-size: .8rem; color: var(--gray); }
+    .agent-contact {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .agent-btn {
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      transition: all var(--transition);
+    }
+    .agent-btn.primary { background: var(--navy); color: var(--white); }
+    .agent-btn.primary:hover { background: var(--navy2); }
+    .agent-btn.ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+    .agent-btn.ghost:hover { background: var(--navy); color: var(--white); }
+
+    /* ── LEAD SECTION ── */
+    .lead-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .lead-section::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(201,151,58,.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+    .lead-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .lead-text-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .lead-text-title span { color: var(--gold2); }
+    .lead-text-sub { color: rgba(255,255,255,.65); font-size: 1rem; margin-bottom: 28px; }
+    .lead-perks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .lead-perks li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,.8);
+      font-size: .92rem;
+    }
+    .lead-perks li::before {
+      content: '✓';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      background: var(--gold);
+      border-radius: 50%;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .lead-form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.3);
+    }
+    .lead-form-card .lead-card-title { font-size: 1.35rem; }
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--light);
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      color: var(--dark);
+      background: var(--off);
+      resize: vertical;
+      min-height: 90px;
+      transition: border-color var(--transition);
+    }
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--white);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060f1f;
+      color: rgba(255,255,255,.6);
+      padding: 60px 5% 32px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand .nav-logo-text { font-size: 1.4rem; }
+    .footer-desc {
+      font-size: .85rem;
+      line-height: 1.7;
+      margin-top: 14px;
+      margin-bottom: 20px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.08);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: background var(--transition);
+      border: none;
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+    }
+    .social-btn:hover { background: var(--gold); color: var(--white); }
+    .footer-col-title {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .5px;
+      margin-bottom: 18px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      font-size: .85rem;
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--gold2); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      font-size: .8rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--gold2); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 9999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 1.1rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; gap: 40px; }
+      .lead-card { max-width: 520px; }
+      .listings-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .agents-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 60px 5%; }
+      .hero { padding: 100px 5% 60px; }
+      .hero-stats { gap: 20px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .search-bar { flex-direction: column; }
+      .search-bar .form-group { width: 100%; }
+      .listings-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .agents-grid { grid-template-columns: repeat(2, 1fr); }
+      .lead-inner { grid-template-columns: 1fr; gap: 40px; }
+      .lead-form-card { max-width: 100%; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2rem; }
+      .hero-stats { flex-direction: column; gap: 12px; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .agents-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🏡</div>
+    <span class="nav-logo-text">Gateway Realty</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#listings">Listings</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="members.html">Members</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Free Consult</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#listings" onclick="closeMobile()">Listings</a>
+  <a href="#why" onclick="closeMobile()">Why Us</a>
+  <a href="#agents" onclick="closeMobile()">Agents</a>
+  <a href="#process" onclick="closeMobile()">Process</a>
+  <a href="members.html" onclick="closeMobile()">Members</a>
+  <a href="#contact" onclick="closeMobile()">Get a Free Consult</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-shapes"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">🔑 #1 Rated Realty in the Region</div>
+      <h1 class="hero-title">
+        Find Your <span>Perfect Home</span><br>With Confidence
+      </h1>
+      <p class="hero-subtitle">
+        Gateway Realty connects buyers, sellers, and renters with local experts who truly know the market — delivering results, not just listings.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>2,400+</strong>
+          <span>Homes Sold</span>
+        </div>
+        <div class="hero-stat">
+          <strong>98%</strong>
+          <span>Client Satisfaction</span>
+        </div>
+        <div class="hero-stat">
+          <strong>$1.2B+</strong>
+          <span>In Transactions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lead-card">
+      <div class="lead-card-title">Start Your Home Search</div>
+      <p class="lead-card-sub">Get matched with a top local agent — free, no commitment.</p>
+      <form id="heroForm" onsubmit="handleForm(event, 'heroForm')">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(555) 000-0000" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>I'm Looking To</label>
+            <select required>
+              <option value="" disabled selected>Select...</option>
+              <option>Buy a Home</option>
+              <option>Sell a Home</option>
+              <option>Rent a Property</option>
+              <option>Invest</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Budget Range</label>
+            <select>
+              <option value="" disabled selected>Select...</option>
+              <option>Under $300K</option>
+              <option>$300K – $500K</option>
+              <option>$500K – $800K</option>
+              <option>$800K – $1.2M</option>
+              <option>$1.2M+</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Connect Me With an Agent →</button>
+        <div class="form-trust">🔒 Your info is 100% private. No spam, ever.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <strong>15+</strong>
+      <p>Years in Business</p>
+    </div>
+    <div class="stat-item">
+      <strong>42</strong>
+      <p>Expert Agents</p>
+    </div>
+    <div class="stat-item">
+      <strong>18 Days</strong>
+      <p>Avg. Days to Close</p>
+    </div>
+    <div class="stat-item">
+      <strong>4.9★</strong>
+      <p>Average Rating</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTY SEARCH -->
+<div class="search-section">
+  <div class="search-bar">
+    <div class="form-group">
+      <label>Location</label>
+      <input type="text" placeholder="City, ZIP, or Neighborhood" />
+    </div>
+    <div class="form-group">
+      <label>Property Type</label>
+      <select>
+        <option>Any Type</option>
+        <option>Single Family</option>
+        <option>Condo / Townhome</option>
+        <option>Multi-Family</option>
+        <option>Land</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Min Price</label>
+      <select>
+        <option>No Min</option>
+        <option>$100,000</option>
+        <option>$200,000</option>
+        <option>$300,000</option>
+        <option>$500,000</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Max Price</label>
+      <select>
+        <option>No Max</option>
+        <option>$400,000</option>
+        <option>$600,000</option>
+        <option>$900,000</option>
+        <option>$1,500,000+</option>
+      </select>
+    </div>
+    <button class="btn-search">🔍 Search</button>
+  </div>
+</div>
+
+<!-- FEATURED LISTINGS -->
+<section class="listings" id="listings">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag">Featured Properties</span>
+      <h2 class="section-title">Homes You'll Love</h2>
+      <p class="section-sub">Hand-picked listings across the region. Updated daily.</p>
+    </div>
+    <div class="listings-grid">
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80" alt="Modern Family Home" loading="lazy" />
+          <span class="listing-badge new">New</span>
+          <button class="listing-fav">♡</button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">$549,000</div>
+          <div class="listing-addr">📍 142 Maplewood Drive, Clearview, CA</div>
+          <div class="listing-details">
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              4 Beds
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+              3 Baths
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              2,340 sq ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Luxury Estate" loading="lazy" />
+          <span class="listing-badge">Featured</span>
+          <button class="listing-fav">♡</button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">$1,195,000</div>
+          <div class="listing-addr">📍 8 Ridgecrest Blvd, Sundale, CA</div>
+          <div class="listing-details">
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              5 Beds
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+              4.5 Baths
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              4,100 sq ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80" alt="Cozy Cottage" loading="lazy" />
+          <span class="listing-badge reduced">Price Drop</span>
+          <button class="listing-fav">♡</button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">$389,500</div>
+          <div class="listing-addr">📍 26 Willowbrook Lane, Pinehill, CA</div>
+          <div class="listing-details">
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              3 Beds
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+              2 Baths
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              1,680 sq ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Modern Ranch" loading="lazy" />
+          <span class="listing-badge new">New</span>
+          <button class="listing-fav">♡</button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">$725,000</div>
+          <div class="listing-addr">📍 512 Harvest Creek Rd, Lakewood, CA</div>
+          <div class="listing-details">
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              4 Beds
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+              3 Baths
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              2,900 sq ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&q=80" alt="Urban Townhome" loading="lazy" />
+          <span class="listing-badge">Featured</span>
+          <button class="listing-fav">♡</button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">$468,000</div>
+          <div class="listing-addr">📍 88 Elm Street, Harborview, CA</div>
+          <div class="listing-details">
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              3 Beds
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+              2.5 Baths
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              1,950 sq ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Waterfront Villa" loading="lazy" />
+          <span class="listing-badge">Featured</span>
+          <button class="listing-fav">♡</button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">$2,100,000</div>
+          <div class="listing-addr">📍 1 Bayshore Circle, Marina Cove, CA</div>
+          <div class="listing-details">
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              6 Beds
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+              5 Baths
+            </div>
+            <div class="listing-detail">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              5,800 sq ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="listings-cta">
+      <a href="#" class="btn-outline">View All 200+ Listings →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag">Why Gateway Realty</span>
+      <h2 class="section-title">The Smarter Way to Buy or Sell</h2>
+      <p class="section-sub">We combine local expertise with modern tools to give you an edge in any market.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-title">Award-Winning Agents</div>
+        <p class="why-text">Our agents are consistently ranked in the top 1% nationally. They know every neighborhood, price trend, and hidden gem in the region.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📊</div>
+        <div class="why-title">Data-Driven Pricing</div>
+        <p class="why-text">We use real-time market analytics and comparable sales data to price your home precisely — so you never leave money on the table.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Lightning-Fast Closings</div>
+        <p class="why-text">Our streamlined process averages just 18 days to close — nearly half the industry average — so you can move in sooner.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤝</div>
+        <div class="why-title">Negotiation Experts</div>
+        <p class="why-text">We fight for every dollar. Our agents have negotiated over $50M in savings for buyers and premium returns for sellers.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📱</div>
+        <div class="why-title">Always Reachable</div>
+        <p class="why-text">Text, call, or email — your agent responds within the hour, 7 days a week. Real estate doesn't wait for business hours, and neither do we.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔍</div>
+        <div class="why-title">Off-Market Access</div>
+        <p class="why-text">Get first look at exclusive listings before they hit the public market. Our network of 3,000+ agents gives you a serious competitive advantage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag" style="color: var(--gold2);">How It Works</span>
+      <h2 class="section-title">Simple. Transparent. Proven.</h2>
+      <p class="section-sub">Four steps from first conversation to closing day.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Tell Us What You Need</div>
+        <p class="step-text">Fill out the quick form and share your goals, timeline, and budget. Takes 2 minutes.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Meet Your Agent</div>
+        <p class="step-text">We match you with a specialist for your area and property type — no random assignments.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Tour &amp; Negotiate</div>
+        <p class="step-text">View homes in person or virtually. Your agent handles all offers and negotiations on your behalf.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Close &amp; Celebrate</div>
+        <p class="step-text">Sign the paperwork, collect your keys, and move into your new chapter. We'll be there every step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag">Client Stories</span>
+      <h2 class="section-title">Real Results. Real People.</h2>
+      <p class="section-sub">Don't take our word for it — here's what our clients say.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"We were first-time buyers and completely overwhelmed. Our agent at Gateway made the whole process feel easy. We closed in 16 days, under asking price. Couldn't be happier."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩</div>
+          <div>
+            <div class="author-name">Sarah & Tom Mitchell</div>
+            <div class="author-loc">Purchased in Clearview, CA</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I listed with Gateway after being disappointed by another agency. Within a week I had three offers — all above asking. Their marketing and staging advice made all the difference."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨</div>
+          <div>
+            <div class="author-name">David Reyes</div>
+            <div class="author-loc">Sold in Sundale, CA</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"As an investor, I need speed and accuracy. Gateway delivered both — off-market deals, fast analysis, and zero surprises. They're my go-to for every acquisition now."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩‍💼</div>
+          <div>
+            <div class="author-name">Angela Park</div>
+            <div class="author-loc">Investor — 6 Properties</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section id="agents">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag">Our Team</span>
+      <h2 class="section-title">Meet Our Top Agents</h2>
+      <p class="section-sub">Local experts with proven track records. Ready to work for you.</p>
+    </div>
+    <div class="agents-grid">
+      <div class="agent-card">
+        <div class="agent-photo">👩‍💼</div>
+        <div class="agent-name">Jennifer Lowe</div>
+        <div class="agent-role">Senior Listing Agent</div>
+        <div class="agent-deals">142 deals closed · 4.9★</div>
+        <div class="agent-contact">
+          <button class="agent-btn primary">Message</button>
+          <button class="agent-btn ghost">Call</button>
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-photo">👨‍💼</div>
+        <div class="agent-name">Marcus Bell</div>
+        <div class="agent-role">Buyer's Specialist</div>
+        <div class="agent-deals">118 deals closed · 5.0★</div>
+        <div class="agent-contact">
+          <button class="agent-btn primary">Message</button>
+          <button class="agent-btn ghost">Call</button>
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-photo">🧑‍💼</div>
+        <div class="agent-name">Priya Sharma</div>
+        <div class="agent-role">Luxury Property Expert</div>
+        <div class="agent-deals">97 deals closed · 4.9★</div>
+        <div class="agent-contact">
+          <button class="agent-btn primary">Message</button>
+          <button class="agent-btn ghost">Call</button>
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-photo">👨‍🏫</div>
+        <div class="agent-name">Carlos Vega</div>
+        <div class="agent-role">Investment Advisor</div>
+        <div class="agent-deals">204 deals closed · 4.8★</div>
+        <div class="agent-contact">
+          <button class="agent-btn primary">Message</button>
+          <button class="agent-btn ghost">Call</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD CAPTURE -->
+<section class="lead-section" id="contact">
+  <div class="inner">
+    <div class="lead-inner">
+      <div class="lead-text">
+        <div class="hero-badge" style="margin-bottom: 20px;">Free — No Obligation</div>
+        <h2 class="lead-text-title">Ready to Make Your <span>Move?</span></h2>
+        <p class="lead-text-sub">Whether buying, selling, or just exploring — a 15-minute call with one of our agents can save you thousands and months of stress.</p>
+        <ul class="lead-perks">
+          <li>Free home valuation for sellers</li>
+          <li>Personalized property shortlist for buyers</li>
+          <li>Market report for your target neighborhood</li>
+          <li>Zero pressure, zero commitment</li>
+        </ul>
+      </div>
+      <div class="lead-form-card">
+        <div class="lead-card-title">Schedule Your Free Consultation</div>
+        <p class="lead-card-sub">A local expert will reach out within 24 hours.</p>
+        <form id="contactForm" onsubmit="handleForm(event, 'contactForm')">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="First" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Last" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="(555) 000-0000" required />
+          </div>
+          <div class="form-group">
+            <label>I'm Interested In</label>
+            <select required>
+              <option value="" disabled selected>Select a service...</option>
+              <option>Buying a Home</option>
+              <option>Selling My Home</option>
+              <option>Investment Properties</option>
+              <option>Rental / Leasing</option>
+              <option>Market Valuation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (optional)</label>
+            <textarea placeholder="Tell us more about your situation..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Request My Free Consultation →</button>
+          <div class="form-trust">🔒 We respect your privacy. No spam, ever.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom: 0;">
+          <div class="nav-logo-icon">🏡</div>
+          <span class="nav-logo-text">Gateway Realty</span>
+        </a>
+        <p class="footer-desc">California's most trusted real estate partner. We help families and investors find, buy, sell, and grow through property — with integrity and expertise at every step.</p>
+        <div class="footer-socials">
+          <a class="social-btn" href="#" aria-label="Facebook">f</a>
+          <a class="social-btn" href="#" aria-label="Instagram" style="font-style:italic;">in</a>
+          <a class="social-btn" href="#" aria-label="Twitter">𝕏</a>
+          <a class="social-btn" href="#" aria-label="LinkedIn">Li</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="#listings">Browse Listings</a></li>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#agents">Our Agents</a></li>
+          <li><a href="#process">How It Works</a></li>
+          <li><a href="#contact">Free Consultation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Property Types</div>
+        <ul>
+          <li><a href="#">Single Family Homes</a></li>
+          <li><a href="#">Condos & Townhomes</a></li>
+          <li><a href="#">Luxury Estates</a></li>
+          <li><a href="#">Multi-Family</a></li>
+          <li><a href="#">Investment Properties</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Contact Us</div>
+        <ul>
+          <li><a href="tel:+15550001234">📞 (555) 000-1234</a></li>
+          <li><a href="mailto:hello@gatewayrealty.com">✉️ hello@gatewayrealty.com</a></li>
+          <li><a href="#">📍 200 Gateway Plaza, CA 90210</a></li>
+          <li><a href="#">🕐 Mon–Sat: 8AM – 8PM</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Gateway Realty. All rights reserved.</span>
+      <div style="display:flex;gap:20px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Fair Housing</a>
+        <a href="#">DRE #01234567</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toastMsg">Thanks! An agent will reach out within 24 hours.</span>
+</div>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // Favorite toggle
+  document.querySelectorAll('.listing-fav').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+      btn.style.color = btn.textContent === '♥' ? '#ef4444' : '';
+    });
+  });
+
+  // Form submission
+  function handleForm(e, formId) {
+    e.preventDefault();
+    const form = document.getElementById(formId);
+    const btn = form.querySelector('.btn-primary');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      form.reset();
+      btn.textContent = formId === 'heroForm' ? 'Connect Me With an Agent →' : 'Request My Free Consultation →';
+      btn.disabled = false;
+      showToast('Thanks! An agent will reach out within 24 hours.');
+    }, 1200);
+  }
+
+  // Toast
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4500);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.listing-card, .why-card, .testimonial-card, .agent-card, .process-step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+
+  // Smooth agent buttons
+  document.querySelectorAll('.agent-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
